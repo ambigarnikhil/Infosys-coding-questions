@@ -1,0 +1,1115 @@
+#include<stdio.h>
+void main()
+{
+	int private;
+	printf("%d",private);
+}
+//we cant run this program in c++.
+
+C is a procedure oriented language.
+C++ is partially object oriented language.
+Java: Fully object oriented language.
+
+C++:
+Object Oriented:
+Abstraction
+Inheritance
+Polymorphism: Method overloading & overridding
+Encapsulation.
+Bottom up Approach instead of a top down approach
+Reference variables.
+Exception Handling.
+
+Keywords in C++: 52
+
+Datatypes:
+void
+boolean
+char- 1byte
+wchar_t(Wide character) - 2 bytes(Unicode Characters) to store emoji's
+int
+float
+double 
+
+Multiple variation of for loop:
+Conventional For loop
+For each loop - was introduced in c++ 11
+
+ex:
+#include<iostream>
+using namespace std;
+int main()
+{
+	int arr[]={10,20,30,40,50};
+	int i;
+	for(i:arr)
+		cout<<i;
+	return 0;
+}
+
+
+Reference Variable
+
+/*
+// Call by value
+void fun(int a, int b)
+{
+    int temp=a;
+    a=b;
+    b=temp;
+
+}
+int main()
+{
+    int a=10,b=20;
+    fun(a,b);
+    cout<<a<<" "<<b<<endl;
+    return 0;
+}
+//10 20
+*/
+
+/*
+//Call by address
+void fun(int *a, int *b)
+{
+    int temp=*a;
+    *a=*b;
+    *b=temp;
+
+}
+int main()
+{
+    int a=10,b=20;
+    fun(&a,&b);
+    cout<<a<<" "<<b<<endl;
+    return 0;
+}
+//20 10
+*/
+
+/*
+int main()
+{
+    int a=10;
+    int &b=a;
+    b=50;
+    cout<<a<<endl;
+    return 0;
+}
+//50
+*/
+
+
+/*
+//reference variables can only point to other variable address.
+//Pass by reference
+void fun(int &a, int &b)
+{
+    int temp=a;
+    a=b;
+    b=temp;
+
+}
+int main()
+{
+    int a=10,b=20;
+    fun(a,b);
+    cout<<a<<" "<<b<<endl;
+    return 0;
+}
+//20 10
+*/
+
+struct ->stores only variables. we create member functions.
+class-> stores variables as well as functions.  we create objects
+
+
+Acess specifiers:
+Private: The variables and methods are accessible within the class.
+
+Protected: The variables and methods are only accessible within the class and by its subclass.
+
+Public: Variables and method are accessible by objects outside class as well.
+
+Constructors:
+Same name as class name.
+3 types: Default ,parameterized and copy 
+does not have return type.
+Can never be private.
+Moment an object is created constructor is called.
+
+  
+Default copy constructor =Shallow copy constructor
+User defined Copy constructor = Deep copy constructor
+
+
+Shallow Copy constructor: Bit-by-Bit copy
+Deep copy constructor: Field by field 
+
+
+" this" pointer refer to the object which wants to access data member or member functions.
+
+Destructors:
+same name as class name with prefix ~
+is called when a object is deleted
+Does not have a return type
+can never be private.
+
+Storage classes in C++:
+auto
+Static
+register
+extern
+mutable - opposite of constant. any member which is mutable ,its value can be changed.
+/*
+class A{
+    public:
+        int y=0;
+        mutable int z=0;
+};
+int main()
+{
+    const A a;
+    a.z=10;
+    cout<<a.z<<endl;
+}
+//10
+//z is mutable and y is constant
+*/
+
+Static variables(C++)
+Within a class, static variables have a different meaning.
+Static variables cannot be declared without intialization.
+Static variables are a part of the class, not the objects.
+So all objects have access to same copy of the static variable
+As long as the variable is constant, it can be intialized within the class.
+Else it must be intialized outside the class.
+
+class A{
+	public:
+	static int z;
+};
+int A::z=0;
+int main()
+{
+	const A a;
+	cout<<a.z;
+}
+
+
+Friend Function:
+A function that isn't a part of a class and yet can access private, public, protected
+members.
+A friend function does not belong to the scope of the class
+An object cannot call a friend functions
+A function can be declared as friend either in private or public or protected.
+
+/*
+class A
+{
+private:
+    int a=10;
+public:
+    static int z;
+    friend void fun(A &object);
+};
+void fun(A &object)
+{
+    cout<<"IN FUNCTION FUN\n";
+    cout<<object.a;
+}
+int main()
+{
+    A a;
+    fun(a);
+}
+IN FUNCTION FUN
+10
+*/
+
+
+Friend class:
+A class which is declared as friend and it can access private, protected, public members of the class.
+
+
+Static:
+static variables(Outside class)
+static variables (Inside class)
+static objects (Not deleted until end of program)
+static methods within a class(we can call the method by class name rather than object)
+static methods within a class cannot access non static variables 
+you can call static method using an class name but you cannot call a non static method 
+using a class name directly.
+
+Inheritance:
+Inherit/ Obtain variables & methods of one class to another class.
+
+
+
+A derived member cannot have weaker privileges.
+
+Private Inheritance
+Base  			Derived
+private			Inaccessible
+protected       protected
+public          private
+
+Protected Inheritance
+Base  			Derived
+private			Inaccessible
+protected       protected
+public          protected
+
+Public Inheritance
+Base  			Derived
+private			Inaccessible
+protected       protected
+public          public
+
+4 types of Inheritance
+1. Single inheritance: base class----Derived class 
+2. Multilevel inheritance: base class---- derived class---- derived class1.
+3. Hierarchical inheritance: base class---- derived class, derived class1.
+4. Multiple inheritance: Base class 1, Base class 2----- derived class
+
+ /*
+class Base1
+{
+    public:   void fun1() {cout<<"1\n"; }
+};
+class Base2
+{
+    public:   void fun2() {cout<<"2\n"; }
+};
+class Derived: public Base1,public Base2
+{
+
+};
+int main()
+{
+    Derived d;
+    d.fun1();
+    d.fun2();
+}
+//1 2
+*/
+
+/*
+class Base1
+{
+    public:   void fun() {cout<<"1\n"; }
+};
+class Base2
+{
+    public:   void fun() {cout<<"2\n"; }
+};
+class Derived: public Base1,public Base2
+{
+
+};
+int main()
+{
+    Derived d;
+    d.fun();
+}
+//ambiguous error
+*/
+
+/*
+class Base1
+{
+    public:   void fun(int a, int b, int c, int d) {cout<<"1\n"; }
+};
+class Base2
+{
+    public:   void fun() {cout<<"2\n"; }
+};
+class Derived: public Base1,public Base2
+{
+
+};
+int main()
+{
+    Derived d;
+    d.fun(10,20,30,40);
+}
+//ambiguous error
+*/
+
+method overloading takes place only within a class.
+two classes can't have functions with same name.
+
+/*
+class Base1
+{
+    public:   void fun() {cout<<"1\n"; }
+};
+class Base2
+{
+    public:   void fun() {cout<<"2\n"; }
+};
+class Derived: public Base1,public Base2
+{
+public:
+    void call_fun()
+    {
+            Base1::fun();
+            Base2::fun();
+    }
+
+};
+int main()
+{
+    Derived d;
+    d.call_fun();
+}
+//1
+//2
+*/
+
+Multiple inheritance is removed in java and it is there in c++ and python
+
+Encapsulation:
+combine variables and methods into a single entity.
+A class can combine variables and methods together.
+
+Polymorphism(Overloading & overriding )
+One entity can exist in multiple forms.
+either during  compile time or run time
+
+Compile time polymorphism:
+operator overloading/*
+int main()
+{
+    string s1="HELLO";
+    string s2="World";
+    string s3= s1+s2;
+    int x=10,y=20;
+    int z=x+y;
+    cout<<s3<<endl;
+    cout<<z<<endl;
+}
+//HELLOWorld
+//30
+*/
+
+vectors(dynamic in nature, they change size by themselves)
+
+
+Operator, Function
+C++ supports operator overloading with objects.
+Java does not support operator overloading with objects.
+
+Default values for arguments:
+Must begin from right most argument to left arguments.
+(a middle argument cannot be a default argument if all the arguments to its right are not default ) 
+
+
+ Compile time polymorphism
+ Static binding or Static Linkage or Early Binding or Early linkage
+ 
+ Run Time polymorphism:
+ Dynamic Binding or Dynamic Linkage or Late Binding or Late Linkage
+ 
+ /*
+ A base class pointer points to base class functions during compile time.
+class Base
+{
+    public: void fun()  { cout<<"1"; }
+};
+class Derived: public Base
+{
+    public: void fun()  { cout<<"2"; }
+};
+int main()
+{
+    Base *b;
+    Derived d;
+    b=&d;
+    b->fun();
+}
+//1
+*/
+
+Virtual Functions (Only available in C++ not in java)
+Functions which are associated with a class during run time instead of compile time. 
+
+ /*
+class Base
+{
+    public: void fun()  { cout<<"1"; }
+};
+class Derived: public Base
+{
+    public: void fun()  { cout<<"2"; }
+};
+int main()
+{
+    Base *b;
+    Derived d;
+    b=&d;
+    b->fun();
+}
+//1
+*/
+
+
+/*
+class Base
+{
+    public: virtual void fun()  { cout<<"1"; }
+};
+class Derived: public Base
+{
+    public: void fun()  { cout<<"2"; }
+};
+int main()
+{
+    Base *b;
+    Derived d;
+    b=&d;
+    b->fun();
+}
+//2
+*/
+Base class object can point to virtual functions of that class
+Base class pointer cannot point to virtual functions of that class
+Base class pointer can point to a functions having same name as virtual 
+function in sub class if the pointer is pointing to the address of sub class.
+
+
+Rules of Virtual Classes:
+A virtual function cannot be static  
+A virtual function cannot be friend function also
+A virtual function can exist without defintion (Pure virtual function)
+virtual void fun() = 0;
+Any virtual function which is pure , must be implemented in it's sub class. 
+
+In c++ there is no abstract class or interface.
+Abstract classes are created using pure virtual functions.
+
+Standard Template Library(STL):
+Template: Feature in c++ which helps in generic programming.
+Generic programming has generic classes and generic functions.
+Generic programming eliminates idea of creating algorithms we can just implement
+algorithms created already by reusing their code.
+
+Arrays: Do not change their size dynamically by themselves
+Vector: Change their size dynamically by themselves.
+
+STL:
+Containers:
+Vectors, arrays, list , queue, priority_queue, stack, map.
+
+3 types of containers:
+Sequence Container: vector, deque, list
+Associative Container: set, map, multimap, multiset.
+Derived Container/ container adapaters: stack, queue, priority_queue.
+
+Iterators in C++?
+Iterators are basically pointers which point to a certain value in a cointainer.
+vector_name.begin() {returns address of first element of the vector as iterator}
+vector_name.end()   {returns address of last element of the vector as iterator}
+
+
+Exception Handling:
+Complie time errors
+Run time errors(Exception handling)
+
+Array out of bound Exception only occurs in java.
+
+Three keywords in Exception Handling within c++:
+try, catch, throw
+
+try-> Block in which we can write any statements which can encounter Run time error
+catch-> block is written immediately after try block where we catch the exception and 
+continue execution of the program.
+throw-> Send an exception from one function to another function.
+
+***********************************************************************************************
+										Java
+*********************************************************************************************
+
+High level programming language.
+JavaSE(Standard Edition): Core java OOPs
+JavaME(micro edition): Mobile app Dev
+JavaEE(Enterprise edition): Webprograms include servlets
+
+Features of java/Buzzwords
+Platform independent:
+compile in windows/linux: .class
+WORA(Write once,run anywhere)
+ 
+Secure: Every program  that runs in java runs on a separate sandbox mode.
+Robust: Good memory management(Garbage collector: method called finalize)
+Does not allow users to use pointers.
+
+Difference between C++ and java?
+C++: platform dependent
+c++: System programming / Java: application programming.
+
+Java doesn't have certain keywords/ Features
+POinters( Internally pointers are supported) Externally Inaccessible
+Reference variable
+goto
+Multiple inheritance
+Structures and Unions
+Virtual
+Default Arguments
+Header Files (Replaced by Importing packages and classes)
+operator overloading(with objects)
+Destructors(Garbage collectors which are implemented using finalize methods)
+
+
+Everything in java is default(access specifiers) by default
+Four access specifiers in java:
+private, protected, public, default.
+
+
+
+/*
+//Hello world program
+//System is class, out is stream, println is method
+public class July16
+{
+  public static void main(String args[])
+  {
+    System.out.println("Hello world\n");
+  }
+}
+*/
+
+Is java a compiled language or an interpreted language?
+The  compiler decides when to compile and when to interpret to optimize execution.
+
+
+
+JIT: Just in time compiler(converts byte code to machine understandable code)
+
+JVM: (Sandbox mode) To run programs in a sandbox mode, you need a virtual machine.
+		Java Virtual machine: which provides an environment to execute a bytecode.
+		
+JRE:(Java Runtime Environment) Set of libraries + JVM so that you can run any java programs easily.
+
+JDK: Development tools + JRE.
+
+
+In JVM:
+Classloader(load class files inorder to execute them)
+Class Area(Class data stored)
+Heap
+Stack
+Program counter Register
+Native method stack
+Execution engine
+JNI (Java native interface)
+
+
+Variable name can start with characters, underscore and dollar symbol.
+
+
+Datatypes:
+Char: 2bytes(Until C++ it was ASCII)
+In java it is Unicode (UTF_16)
+\u0000 to \uFFFF
+
+Boolean(1 bit -> true or false): Default value is false
+
+Numeric:
+Byte-1
+short-2
+int-4
+long-8
+float-4
+double-8
+
+Operator
+
+>>> (Triple right Shift operator)
+If its a positive value, we can right shift it as it is
+If its a negative value, it changes MSB to 0 from 1.
+
+ C++: class_name Object_name;
+ java: class_name Object_name = new Class_name();
+ 
+ 
+ Anonymous Object:
+ /*
+class Bye
+{
+void fun()
+{
+  System.out.println("Bye");
+}
+
+}
+
+public class July16
+{
+  public static void main(String args[])
+  {
+    //System.out.println("Hello world\n");
+    new Bye().fun(); //Anonymous Object
+    Bye b= new Bye();
+    b.fun();// Named object
+  }
+}
+//Bye
+//Bye
+*/
+
+Constructor:
+Constructors cannot be abstract / final / static / synchronized.
+Types of Constructors: Default, parameterized(Can be overloaded as well).
+
+Bye b1;
+Bye b2=new Bye(b1); // Inbuilt /shallow copy constructor is usable.
+
+Clone method helps copy one object content to another object.
+
+/*
+// No destructors in java
+class Bye
+{
+Bye()
+{
+  System.out.println("Bye");
+}
+~Bye()
+{
+  System.out.println("Bye");
+}
+
+
+}
+
+public class July16
+{
+  public static void main(String args[])
+  {
+    Bye b= new Bye();
+  }
+}
+//error: illegal start of type
+*/
+
+Static:
+1.static variable: Is 0 by default(whether in class or outside class)
+2.static Function/method
+3.static sub-class: can create static inner classes but not outer classes
+
+4.static  block: static blocks execute first and then main method executes.
+written outside main/ written outside any function of a class 
+Executes when the first function of the class is called. 
+
+
+/*
+public class July16
+{
+  static {System.out.println("Hello\n");}
+  public static void main(String args[])
+  {
+    System.out.println("Nikhyaa-Rupali\n");
+  }
+  static {System.out.println("world\n");}
+}
+op:
+Hello
+world
+Nikhyaa-Rupali
+*/
+
+
+In c++ we have this pointer: this->a;
+In java we have this keyword: this.a;(A reference variable to the object)
+
+Whenever calling a constructor from within a class,
+the call to constructor must be first line of another constructor
+
+Keyword: super
+To access variables and methods of a super(Base class) from derived class
+
+Inheritance and polymorphism
+
+polymorphism
+compile: Method overloading
+runtime: Method overriding  (Base b= new Derived();)
+
+Inheritance
+abstract classes
+interfaces
+Final
+package
+multithreading
+exception handling
+
+Inheritance
+Keyword used in inheritance is extends
+class Derived extends base_class
+c++: class_name: access_specifiers base_class;
+
+No multiple Inheritances
+
+Abstract classes
+Can hide anywhere between 0 to 100%
+Abstract classes can have abstract as well as non abstract functions
+Any class that inherits abstract class must implement the abstract function, unless the
+inherited class is also an abstract class.
+Can I create an object under abstract class?  No
+
+/*
+abstract class Base
+{
+  void fun() {  }
+  abstract void display();
+}
+class Derived extends Base
+{
+  //must implement any abstract functions in its parent class.  
+}
+public class July16
+{
+  
+  public static void main(String args[])
+  {
+    System.out.println("Nikhyaa-Rupali\n");
+  }
+}
+*/
+
+
+
+Interfaces
+Interfaces by default make any variable : public , static and final
+Interfaces by default make any function public,abstract.
+When a class inherits a class we use keyword "extends"
+When a interface inherits a interface we use keyword "extends"
+When a class inherits a interface we use keyword "implements"
+When a interface inherits a class - Impossible.
+Multiple inheritance is possible with interfaces.
+hide exactly 100% 
+
+
+Access Specifiers:
+Private: Access within a class
+default: access within a package (Cannot access outside the package)
+protected: Access within as well as outside a package( Only within a sub class)
+public: Access within a class, outside class, within pkg, outside pkg (With objects)
+
+
+Exception handling:
+try, catch, throw - c++
+5 keywords in java within Exception handling:
+try, catch, throw, throws, finally
+Multiple catch blocks(Must be in increasing order)
+Finally: written after catch (It executes whether exception is handled or not)
+throws: Used with method signature(There maybe an exception)
+You can throw multiple exceptions with throws
+/*
+class A
+{
+  void fun() throws ArithmeticException
+  {
+    throw new ArithmeticException("Don't do funny arithmetic\n");
+  }
+}
+public class July16
+{
+  
+  public static void main(String args[])
+  {
+    A a = new A();
+    try
+    {
+      a.fun();
+    }
+    catch
+    {
+      
+
+    finally
+    {
+      System.out.println("Nikhyaa-Rupali\n");
+    }
+  }
+}
+*/
+
+Final:
+Final variable:   is constant (No keyword called const)
+Final method: cannot be overriden(when you have a final method in base class, you cannot implement same in derived class)
+Final class: the class cannot be inherited
+
+Packages
+A package is a collection of classes, interfaces and more packages
+
+import java.awt.Button
+java is a package
+awt is a subpackage
+Button is a class
+
+import java.util.*;
+"*"- everything, importing everything under util
+
+
+Collections:
+framework implentation of Data structures, there are present within java.util
+queue
+Deque
+Linkedlist
+vector
+PriorityQueue
+Map
+HashMap
+
+Java.util
+->Collections:
+List: ArrayList, Linkedlist, Vector, Stack
+Queue: queue, PriorityQueue, Deque
+Set: HashSet, LinkedHashSet, SortedSet, TreeSet.
+
+ArrayList is non synchronized whereas vectors are synchronized.
+
+
+Multi threading:(Single process divided into multiple threads)
+Multi threads simultaneously
+Thread Lifecycle:
+new, runnable, non runnable(barred/blocked),running ,closed/terminated.
+/*
+class thr extends Thread
+{
+  public void run()
+  {
+    System.out.println("Nikhyaa-Rupali\n");
+  }
+}
+public class July16
+{
+
+  public static void main(String args[])
+  {
+    thr a=new thr();
+    a.start();
+  }
+}
+//Nikhyaa-Rupali
+*/
+
+python is scripting language
+
+
+******************************************************************************************
+							SDLC(Software development life cycle)
+******************************************************************************************
+
+Software development life cycle:
+
+Steps/Stages:
+1.Planning & Requirement Analysis
+Is the software feasible?
+(Economically feasible, operationally feasible, technically feasible)
+
+2.Defining requirements
+(SRS: Software requirement Specification) Document.
+Functional and nonFunctional Requirements of the application
+
+3.Design
+A blueprint / a model
+
+4: Develop & integrate
+Take a team and dev. according to the design
+
+5. Test
+Test individual modules as well as complete app
+
+6.Deploy
+Release into market
+
+7.Maintenances
+Maintain the app (Update, fix bugs)
+
+
+Waterfall model: we will develop everything at once and review/show it to client
+Iterative model: we will develop parts and show it to client , if positive review 
+go and develop next part, else redevelop the first part itself
+Spiral model: combination of waterfall and iterative.
+
+Bigbang Model:for very small software projects we use this method (Time, members, develop, deploy)
+  
+Agile method
+Aim/Purpose: User satisfaction with RAD(Rapid App. Development)
+
+5 Phases:
+Requirement
+Design
+Implementation
+Testing (High level)
+Deployment (2-3 weeks at maximum)
+(Repeats for each build of the software)
+Scurm - Short meet of the team where they discuss the goals, how to achieve it.
+Program manager - arrange Scurms and figure out how each spirnt is coming up.
+
+
+V model(V stands for Verification and Validation)
+For each phase of development , you test then and there(Unit testing for each developed unit)
+A Fixed projects costs a lot of money.
+
+
+
+Testing
+Verification and Validation( Difference between them )
+Verification : Test if you're building something correctly
+				Checking if you're developing the software right?
+				Checking functions of the app.
+Validation : Test if you're building correctly something
+				Checking if you're developing the right software?
+				Checking whether the app is doing the intended work.
+				
+You can only validate an app once it's verified
+Verification: Check code, function
+Validation: check the working of the app and its purpose.
+
+
+QA and QC
+Quality Assurance: Verify the software developed for its purposes
+Quality Control: Verify the software for its documented requirements.
+
+QC is part of QA
+
+Types of testing:
+Automated Testing
+Done via an automated software/ tool/ script
+Script -> Re-run by changing parameters many times (Repeated)
+Tools used to perform automated tests:
+Selenium
+HP Quick Test
+IBM Rational Function Tester.
+
+Manual Testing
+
+
+Methods of Testing: Black Box, White Box, Gray Box.
+
+Black Box Testing:
+Tester doesn't know the source code, system architecture.
+Tester just knows what is the app (What should it do).
+When a huge software is developed.
+Advantage: No extra time spent in learning about system architecture or source code
+			Can test as a user (Not a Developer)
+
+DisAdvantage: Limited Coverage (Blind Coverage)
+			
+			
+White Box/ Glass Box/ Open Box:
+Tester knows the logic, structure, source code, and system architecture.
+				
+Adv: As a tester who knows source code, it's easier to test
+	 Tester himself can optimize the code.
+	 
+Dis advantage: Tester needs to be skilled to understand the code as well.
+
+Gray Box Testing:
+A tester has limited knowledge.(Only given functional specification)
+
+Advantages: Combine advantages of white Box and Black Box wherever required.
+
+Levels of Testing:
+Functional Level of Testing:
+> Unit testing
+You test each unit if there's any bug , that unit can be redesigned  without affecting rest of the application
+Some bugs can't be caught in unit testing.
+
+> Integration Testing
+The combined units as well as individual units are tested for its functionality
+-> Bottom Up: You perform unit tests, then combine and perform integration tests
+-> top Down: Test the entire app together and then divide the app into units to be tested
+
+>System Testing:
+The whole app together is tested to meet its functionality i.e,
+It's SRS, specifications, quality.
+
+>>Regression testing
+Check whether a bug that is already fixed doesn't cause error or violation in some 
+other functionality of the app.
+
+
+>>Acceptance testing
+The app is tested by the client for their requirements.
+
+>>Alpha Testing
+The complete app is given to developers and Testers to use. (Over time will it cause issues?)
+
+>> Beta Testing
+(Pre-Release Testing) (Big Softwares and games)
+Real world Testing(Beta Version May not be completely stable)
+
+Non Functional Level of Testing:
+Performance(Memory Leakage)
+Security (Hackable
+
+Performance Testing:
+(Speed, Scalable, Capacity)
+Performance Testing is divided into load and stree testing
+
+Load Testing: Peak loads and normal loads of the app
+Stress Testing: Push the software to its breaking point.
+
+>>Usability Testing:
+A user finds the app usable or not
+Are the buttons easy to understand / is the UI simple to understand and use.
+
+>UI Testing:
+GUI Testing
+
+>Security Testing:
+Authentication / Integrity/ Confidentiality
+Is the database hackable using SQL injections?
+Can a user access other users data?
+
+>Portability Testing:
+Transfer your app from one system to another system.
+
+*****************************************************************************************
+									
+*****************************************************************************************
+
+Common Questions:
+
+>Tell me about yourself
+Name - Where you're from - Degree - Achievements (Published papers - projects - internships- additional courses)
+Strengths - Weaknesses
+
+>What are your Favorite subjects?
+
+*****************************************************************************************
+									Data structures and algorithms
+*****************************************************************************************
+
+When we want access many times- Array
+When we want to insert/ delete many times- Linked list.
+
+
+Dynamic programming:
+Algorithmic technique to solve problems
+Prime numbers:
+Given a number n it should not be divisible by any number 2 to n-1.
+Given a number n it should not be divisible by any number 2 to n/2.
+Given a number n it should not be divisible by any number 2 to sqrt(n).
+
+
+Fibonacci series:
+Nth fibonacci number:
+fib(n-1)+ fib(n-2)
+Memoization/Tabling: Store results of function calls so that we can use them again
+and again.
+
+
+ DBMS Common Questions:
+ 
+ Diff b/w RDBMS and NOn-Rel DBMS
+ Ex of it
+ NOrmal forms
+ SQL Injections.
+ Clause works?
+ 

@@ -1,0 +1,262 @@
+*******************************************************************************
+Code by Nikhil Ambigar
+
+Linked List operations:
+append, length, display, addatafter, addatbegin
+deletebyloc, deletebyvalue, reverse, sort, arrangeoddeven
+swapalternativenode. 
+
+*******************************************************************************
+#include<bits/stdc++.h>
+struct node
+{
+    int data;
+    struct node *link;
+};
+struct node *root=NULL;
+void append(int a)
+{
+    struct node *temp;
+    temp=(struct node*)malloc(sizeof(struct node));
+    temp->data=a;
+    temp->link=NULL;
+    if(root==NULL)
+    {
+        root=temp;
+    }
+    else
+    {
+        struct node *p=root;
+        while(p->link!=NULL)
+        {
+            p=p->link;
+        }
+        p->link=temp;
+    }
+}
+void display(struct node *root)
+{
+    if(root==NULL)
+    {
+        cout<<"Linked List is empty"<<endl;
+    }
+    else
+    {
+        struct node *p=root;
+        while(p!=NULL)
+        {
+            cout<<p->data<<"->";
+            p=p->link;
+        }
+        cout<<endl;
+    }
+}
+int length(struct node *root)
+{
+    int count=0;
+    if(root==NULL)
+    {
+        //cout<<"Linked List is empty";
+        return 0;
+    }
+    else
+    {
+        struct node *p=root;
+        while(p!=NULL)
+        {
+            count++;
+            p=p->link;
+        }
+        return count;
+    }
+}
+void addatbegin(int a)
+{
+    struct node *temp;
+    temp=(struct node*)malloc(sizeof(temp));
+    temp->data=a;
+    temp->link=NULL;
+    if(root==NULL)
+    {
+        root=temp;
+    }
+    else
+    {
+        temp->link=root;
+        root=temp;
+    }
+}
+void addatafter(int a,int loc)
+{
+    if(loc>length(root))
+    {
+        cout<<"Invalid location\n";
+    }
+    else
+    {
+        struct node *temp;
+        temp=(struct node*)malloc(sizeof(struct node));
+        temp->data=a;
+        temp->link=NULL;
+        int i=0;
+        struct node *p=root;
+        while(i<loc-1)
+        {
+            p=p->link;
+            i++;
+        }
+        temp->link=p->link;
+        p->link=temp;
+    }
+}
+void deletebyloc(int loc)
+{
+    if(loc>length(root))
+    {
+        cout<<"Invalid Location";
+    }
+    else if(loc==1)
+    {
+        struct node *p=root;
+        root=p->link;
+        p->link=NULL;
+        free(p);
+    }
+    else
+    {
+        struct node *p=root;
+        struct node *q;
+        int i=1;
+        while(i<loc-1)
+        {
+            p=p->link;
+        }
+        q=p->link;
+        p->link=q->link;
+        q->link=NULL;
+        free(q);
+    }
+
+}
+void deletebyvalue(int a)
+{
+    struct node *p=root;
+    struct node *q;
+    while(p->link->data!=a)
+    {
+        p=p->link;
+    }
+    q=p->link;
+    p->link=q->link;
+    q->link=NULL;
+    free(q);
+}
+void reverse()
+{
+    int i=0;
+    int j=length(root)-1;
+    struct node *p=root;
+    struct node *q=root;
+    while(i<j)
+    {
+        int k=0;
+        while(k<j)
+        {
+            q=q->link;
+            k++;
+        }
+        int temp=p->data;
+        p->data=q->data;
+        q->data=temp;
+        i++;
+        j--;
+        p=p->link;
+        q=root;
+    }
+}
+void sort()
+{
+    struct node *p=root;
+    struct node *q;
+    for(p=root;p!=NULL;p=p->link)
+    {
+        for(q=p->link;q!=NULL;q=q->link)
+        {
+            if(p->data>q->data)
+            {
+                int temp=p->data;
+                p->data=q->data;
+                q->data=temp;
+            }
+        }
+    }
+}
+void arrangeoddeven()
+{
+    struct node *p;
+    struct node *q;
+    for(p=root;p!=NULL;p=p->link)
+    {
+        for(q=p->link;q!=NULL;q=q->link)
+        {
+            if(p->data%2==1 && q->data%2==0)
+            {
+                continue;
+            }
+            else if(p->data%2==0 && q->data%2==1)
+            {
+                int temp=p->data;
+                p->data=q->data;
+                q->data=temp;
+            }
+            else if(p->data%2==0 && q->data%2==1 && p->data>q->data )
+            {
+                int temp=p->data;
+                p->data=q->data;
+                q->data=temp;
+            }
+            else{
+                continue;
+            }
+        }
+    }
+}
+void swapalternativenode()
+{
+    struct node *p=root;
+    struct node *q;
+    while(p->link->link!=NULL)
+    {
+        q=p->link->link;
+        int temp=p->data;
+        p->data=q->data;
+        q->data=temp;
+        p=p->link;
+    }
+}
+int main()
+{
+    for(int i=1;i<=6;i++)
+    {
+        append(i);
+    }
+    cout<<"Length: "<<length(root)<<endl;
+    display(root);
+    addatbegin(7);
+    display(root);
+    addatafter(10,8);
+    addatafter(8,2);
+    display(root);
+    deletebyloc(2);
+    display(root);
+    deletebyvalue(5);
+    display(root);
+    reverse();
+    display(root);
+    sort();
+    display(root);
+    arrangeoddeven();
+    display(root);
+    swapalternativenode();
+    display(root);
+}
