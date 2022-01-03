@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1621882299 source:f:\placement preparation\technical session\practice\session_16.c\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+

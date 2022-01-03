@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1619840288 source:f:\technical session\practice\session_8\main.c
+	<stdio.h>
+
+1619862708 source:f:\placement preparation\technical session\practice\session_8.c\main.c
+	<stdio.h>
+	<math.h>
+	<math.h>
+
